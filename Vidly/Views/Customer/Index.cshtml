@@ -17,7 +17,7 @@ else
     <thead>
       <tr>
         <th>Customers</th>
-        <th>Discount Rate</th>
+        <th>Membership Type</th>
       </tr>
     </thead>
       <tbody>
@@ -25,7 +25,7 @@ else
         {
           <tr>
             <td><a href="/Customer/Details/@count">@customer.Name</a></td>
-            <td>@customer.MembershipType.DiscountRate%</td>
+            <td>@customer.MembershipType.Name</td>
           </tr>
           count++;
         }
