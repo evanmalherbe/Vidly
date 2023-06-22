@@ -23,6 +23,38 @@ namespace Vidly.Controllers
       _context.Dispose();
     }
 
+    public ActionResult New()
+    {
+      var types = _context.MembershipTypes.ToList();
+
+      var viewModel = new NewCustomerViewModel
+      {
+        MembershipTypes = types
+      };
+
+      return View(viewModel);
+    }
+
+    [HttpPost]
+    public ActionResult Save(Customer customer)
+    {
+      if (customer.Id == 0)
+        _context.Customers.Add(customer);
+      else
+      {
+        var oldCustomer = _context.Customers.Single(c => c.Id == customer.Id);
+
+        oldCustomer.Name = customer.Name;
+        oldCustomer.Birthdate = customer.Birthdate;
+        oldCustomer.MembershipTypeId = customer.MembershipTypeId;
+        oldCustomer.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+      }
+      
+      _context.SaveChanges();
+
+      return RedirectToAction("Index", "Customer");
+    }
+
     // GET: /customer
     public ActionResult Index()
     {
