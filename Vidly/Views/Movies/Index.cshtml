@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Movies";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
 }
 
 <h2>Movies</h2>
@@ -16,14 +17,17 @@ else
     <thead>
       <tr>
         <th>Movie</th>
+        <th>Genre</th>
       </tr>
     </thead>
     <tbody>
       @foreach(var movie in Model.Movies)
       {
         <tr>
-          <td>@movie.Name</td>
+          <td><a href="/movies/details/@i">@movie.Name</a></td>
+          <td>@movie.Genre.Name</td>
         </tr>
+        i++;
       }
     </tbody>
   </table>
