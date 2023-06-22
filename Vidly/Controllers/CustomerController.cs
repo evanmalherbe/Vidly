@@ -10,34 +10,36 @@ namespace Vidly.Controllers
 {
     public class CustomerController : Controller
     {
-        // GET: /customer
-        public ActionResult Index()
-        {
-            List<Customer> customers = new List<Customer>
-            {
-              new Customer { Name = "John Smith"},
-              new Customer {  Name = "Millie Jones"}
-            };
+    private ApplicationDbContext _context;
 
-            CustomerViewModel viewModel = new CustomerViewModel
-            {
-              Customer = new Customer(),
-              Customers = customers
-            };
+    public CustomerController()
+    {
+      _context = new ApplicationDbContext();
+    }
 
-            return View(viewModel);
-        }
+    protected override void Dispose(bool disposing)
+    {
+      _context.Dispose();
+    }
+
+    // GET: /customer
+    public ActionResult Index()
+    {
+      var customers = _context.Customers.ToList();
+
+      CustomerViewModel viewModel = new CustomerViewModel
+      {
+        Customer = new Customer(),
+        Customers = customers
+      };
+
+      return View(viewModel);
+    }
 
     // GET: /customer/details/1
       public ActionResult Details(int id)
       {
-         List<Customer> customers = new List<Customer>
-        {
-          new Customer {Id = 1, Name = "John Smith"},
-          new Customer {Id = 2, Name = "Millie Jones"}
-        };
-
-        Customer customer = customers.Find(c => c.Id == id);
+        Customer customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
         if (customer == null)
         {
