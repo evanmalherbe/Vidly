@@ -6,6 +6,7 @@
 }
 
 <h2>Movies</h2>
+<a href="/movies/new" class="btn btn-primary">New Movie</a>
 
 @if (Model.Movies.Count == 0)
 {
@@ -24,7 +25,7 @@ else
       @foreach(var movie in Model.Movies)
       {
         <tr>
-          <td><a href="/movies/details/@i">@movie.Name</a></td>
+          <td><a href="/movies/new/@i">@movie.Name</a></td>
           <td>@movie.Genre.Name</td>
         </tr>
         i++;

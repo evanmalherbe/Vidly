@@ -22,6 +22,52 @@ namespace Vidly.Controllers
       {
         _context.Dispose();
       }
+
+      public ActionResult New(int? id)
+      {
+        if (id == null)
+        {
+          var genres = _context.Genres.ToList();
+          var viewModel = new NewMovieViewModel
+          {
+            Genres = genres
+          };
+
+          return View(viewModel); 
+        }
+        else
+        {
+          var movieToUpdate = _context.Movies.SingleOrDefault(m => m.Id == id);
+          var genres = _context.Genres.ToList();
+          var viewModel = new NewMovieViewModel
+          {
+            Genres = genres,
+            Movie = movieToUpdate
+          };
+
+          return View(viewModel); 
+        }
+      }
+
+      [HttpPost]
+      public ActionResult Save(Movie movie)
+      {
+        if (movie.Id == 0)
+          _context.Movies.Add(movie);
+        else
+        {
+          var oldMovie = _context.Movies.Single(c => c.Id == movie.Id);
+
+          oldMovie.Name = movie.Name;
+          oldMovie.DateAdded = movie.DateAdded;
+          oldMovie.NumberInStock = movie.NumberInStock;
+          oldMovie.GenreId = movie.GenreId;
+        }
+      
+        _context.SaveChanges();
+
+        return RedirectToAction("Index", "Movies");
+      }
         // GET: Movies/Random
         public ActionResult Random()
         {
@@ -50,18 +96,32 @@ namespace Vidly.Controllers
 
         public ActionResult Edit(int id)
         {
-          return Content("id=" + id);
+          var movieToUpdate = _context.Movies.SingleOrDefault(m => m.Id == id);
+          if (movieToUpdate == null)
+          {
+            return RedirectToAction("Index", "Movies");
+          }
+
+          var genres = _context.Genres.ToList();
+
+          var viewModel = new NewMovieViewModel
+          {
+            Genres = genres,
+            Movie = movieToUpdate
+          };
+
+          return View(viewModel);
         }
 
         public ActionResult Index()
         {
           var movies = _context.Movies.Include(g => g.Genre).ToList();
 
-        var viewModel = new MovieViewModel
-        {
-          Movie = new Movie(),
-          Movies = movies
-        };
+          var viewModel = new MovieViewModel
+          {
+            Movie = new Movie(),
+            Movies = movies
+          };
 
           return View(viewModel);
         }
