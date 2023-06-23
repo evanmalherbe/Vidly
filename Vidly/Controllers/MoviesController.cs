@@ -30,7 +30,6 @@ namespace Vidly.Controllers
           var genres = _context.Genres.ToList();
           var viewModel = new NewMovieViewModel
           {
-            Movie = new Movie(),
             Genres = genres
           };
 
@@ -40,10 +39,9 @@ namespace Vidly.Controllers
         {
           var movieToUpdate = _context.Movies.SingleOrDefault(m => m.Id == id);
           var genres = _context.Genres.ToList();
-          var viewModel = new NewMovieViewModel
+          var viewModel = new NewMovieViewModel(movieToUpdate)
           {
-            Genres = genres,
-            Movie = movieToUpdate
+            Genres = genres            
           };
 
           return View(viewModel); 
@@ -56,9 +54,8 @@ namespace Vidly.Controllers
       {
          if (!ModelState.IsValid)
           {
-            var viewModel = new NewMovieViewModel 
+            var viewModel = new NewMovieViewModel(movie) 
             { 
-              Movie = movie,
               Genres = _context.Genres
             };
 
@@ -66,12 +63,16 @@ namespace Vidly.Controllers
           }
         
         if (movie.Id == 0)
+        {
+          movie.DateAdded = DateTime.Now;
           _context.Movies.Add(movie);
+        }
         else
         {
           var oldMovie = _context.Movies.Single(c => c.Id == movie.Id);
 
           oldMovie.Name = movie.Name;
+          oldMovie.ReleaseDate = movie.ReleaseDate;
           oldMovie.DateAdded = movie.DateAdded;
           oldMovie.NumberInStock = movie.NumberInStock;
           oldMovie.GenreId = movie.GenreId;
@@ -115,12 +116,9 @@ namespace Vidly.Controllers
             return RedirectToAction("Index", "Movies");
           }
 
-          var genres = _context.Genres.ToList();
-
-          var viewModel = new NewMovieViewModel
+          var viewModel = new NewMovieViewModel(movieToUpdate)
           {
-            Genres = genres,
-            Movie = movieToUpdate
+            Genres = _context.Genres.ToList(),
           };
 
           return View(viewModel);
