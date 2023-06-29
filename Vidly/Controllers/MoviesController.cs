@@ -23,6 +23,7 @@ namespace Vidly.Controllers
 			_context.Dispose();
 		}
 
+		[Authorize(Roles = RoleName.CanManageMovies)]
 		public ActionResult New(int? id)
 		{
 			if (id == null)
@@ -48,6 +49,7 @@ namespace Vidly.Controllers
 			}
 		}
 
+		[Authorize(Roles = RoleName.CanManageMovies)]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult Save(Movie movie)
@@ -86,9 +88,6 @@ namespace Vidly.Controllers
 		public ActionResult Random()
 		{
 			Movie movie = new Movie() { Name = "Shrek!" };
-			//ViewData["Movie"] = movie;
-			//ViewBag.Movie = movie;
-
 			var customers = new List<Customer>
 						{
 							new Customer {Name = "Customer 1"},
@@ -102,12 +101,9 @@ namespace Vidly.Controllers
 			};
 
 			return View(viewModel);
-			//return Content("Hello world!");
-			//return HttpNotFound();
-			//return new EmptyResult();
-			//return RedirectToAction("Index", "Home", new {page = 1, sortBy = "name"});
 		}
 
+		[Authorize(Roles = RoleName.CanManageMovies)]
 		public ActionResult Edit(int id)
 		{
 			var movieToUpdate = _context.Movies.SingleOrDefault(m => m.Id == id);
@@ -134,7 +130,7 @@ namespace Vidly.Controllers
 					Movies = movies
 				};
 
-			if (User.IsInRole("CanManageMovies"))
+			if (User.IsInRole(RoleName.CanManageMovies))
 			{
 					return View("Index", viewModel);
 			}

@@ -23,6 +23,7 @@ namespace Vidly.Controllers
 			_context.Dispose();
 		}
 
+		[Authorize(Roles = RoleName.CanManageMovies)]
 		public ActionResult New(int? id)
 		{
 			var membershipTypes = _context.MembershipTypes.ToList();
@@ -55,6 +56,7 @@ namespace Vidly.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = RoleName.CanManageMovies)]
 		[ValidateAntiForgeryToken]
 		public ActionResult Save(Customer customer)
 		{
