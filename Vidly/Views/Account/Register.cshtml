@@ -36,6 +36,12 @@
 				@Html.TextBoxFor(m => m.DrivingLicense, new { @class = "form-control" })
 			</div>
 		</div>
+		<div class="row mb-2">
+			@Html.LabelFor(m => m.Phone, new { @class = "col-md-2 col-form-label" })
+			<div class="col-md-10">
+				@Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+			</div>
+		</div>
 		<div class="row">
 			<div class="offset-md-2 col-md-10">
 				<input type="submit" value="Register" class="btn btn-outline-dark" />
