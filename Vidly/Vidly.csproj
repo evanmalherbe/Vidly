@@ -210,6 +210,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\RentalsController.cs" />
     <Compile Include="Dtos\CustomerDto.cs" />
     <Compile Include="Dtos\MembershipTypeDto.cs" />
     <Compile Include="Dtos\MovieDto.cs" />
@@ -273,6 +274,14 @@
     <Compile Include="Migrations\202307020738424_AddRentalClass.cs" />
     <Compile Include="Migrations\202307020738424_AddRentalClass.designer.cs">
       <DependentUpon>202307020738424_AddRentalClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202307030701063_AddNumberAvailableToMovieTable.cs" />
+    <Compile Include="Migrations\202307030701063_AddNumberAvailableToMovieTable.designer.cs">
+      <DependentUpon>202307030701063_AddNumberAvailableToMovieTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202307030724125_AddNumberAvailableToMovieTable1.cs" />
+    <Compile Include="Migrations\202307030724125_AddNumberAvailableToMovieTable1.designer.cs">
+      <DependentUpon>202307030724125_AddNumberAvailableToMovieTable1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -420,9 +429,12 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -508,6 +520,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -551,6 +567,7 @@
     <Content Include="Views\Customer\New.cshtml" />
     <Content Include="Views\Movies\New.cshtml" />
     <Content Include="Views\Movies\ReadOnlyList.cshtml" />
+    <Content Include="Views\Rentals\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -624,6 +641,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202307020738424_AddRentalClass.resx">
       <DependentUpon>202307020738424_AddRentalClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307030701063_AddNumberAvailableToMovieTable.resx">
+      <DependentUpon>202307030701063_AddNumberAvailableToMovieTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307030724125_AddNumberAvailableToMovieTable1.resx">
+      <DependentUpon>202307030724125_AddNumberAvailableToMovieTable1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
